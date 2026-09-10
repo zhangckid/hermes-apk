@@ -17,6 +17,20 @@ catgo-gpt connects directly to an existing compatible Hermes Web deployment. Eac
 
 **The app simplifies access, not server-side authorization.** Concurrent users, account permissions and conversation isolation depend on your Web deployment. A shared account does not provide separate private spaces.
 
+## How it works with Hermes Agent
+
+```mermaid
+flowchart TD
+    App["catgo-gpt · Android"] <-->|HTTPS / WSS| Web["Existing Hermes Web interface"]
+    Browser["Your web browser"] <--> Web
+    Web <--> Agent["Hermes Agent · your server"]
+    Agent <--> Models["Configured models and tools"]
+```
+
+**Transparent to your existing Hermes server: no app-specific plugins, server code changes or additional integration configuration.** catgo-gpt is another client of the existing Web interface, not a new server component. It sends requests through compatible Web APIs; Hermes continues to run models and tools on the server and returns the results to the app.
+
+First make sure Hermes Web works, then enter its address, port and login credentials in the app. Existing server setup—Web access, TLS, accounts and model/provider configuration—still needs to be in place. “No server changes” means no changes specifically required to add this client to an already working, [compatible Web deployment](docs/PROTOCOL.md), not that every Hermes version or CLI-only installation is supported.
+
 ## Use from mainland China without a device-side VPN
 
 With an appropriately configured Hermes server, your Android device can access OpenAI GPT models (the models behind ChatGPT), Claude and other supported providers through Hermes without running a VPN or proxy on the phone. The phone connects to your Hermes Web endpoint; the server handles upstream model access, credentials and any required network routing. This is access through Hermes, not a replacement login for the official ChatGPT or Claude apps or their subscriptions.

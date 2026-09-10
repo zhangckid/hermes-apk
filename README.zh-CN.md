@@ -25,6 +25,20 @@ See [development](docs/DEVELOPMENT.md) and [backend compatibility](docs/PROTOCOL
 **本 App 简化的是接入方式，不是服务端权限系统。** 多人同时使用、账号授权和聊天数据隔离，
 仍取决于你的 Hermes Web 服务；请使用服务端允许的账号，不要把共享账号当作独立的隐私空间。
 
+## 如何与 Hermes Agent 配合
+
+```mermaid
+flowchart TD
+    App["catgo-gpt · 安卓客户端"] <-->|HTTPS / WSS| Web["现有 Hermes Web 接口"]
+    Browser["网页版浏览器"] <--> Web
+    Web <--> Agent["Hermes Agent · 你的服务器"]
+    Agent <--> Models["已配置的模型与工具"]
+```
+
+**对现有 Hermes 服务端透明：无需安装任何 App 专用插件、修改服务端代码或增加接入本 App 的专用配置。** catgo-gpt 只是现有 Web 接口的另一个客户端，不是新增的服务端组件。App 通过兼容的 Web API 发起请求，Hermes 仍在服务器上调用模型、执行工具，再把结果返回给 App。
+
+先确保 Hermes 网页版正常工作，再在 App 中填写地址、端口和登录凭据即可。服务器原有的 Web 访问、TLS、账号以及模型／供应商配置仍需准备好。“无需修改服务端”指在已有且正常工作的[兼容 Web 部署](docs/PROTOCOL.md)上接入本客户端不需要额外改造，不代表支持所有 Hermes 版本或只有 CLI 的安装方式。
+
 ## 国内直连使用：手机无需翻墙
 
 正确配置 Hermes 服务端后，安卓设备可以通过 Hermes 使用 OpenAI GPT 系列模型（ChatGPT 背后的模型）、Claude 等受支持的模型服务，手机本身无需运行 VPN 或代理。手机连接你的 Hermes Web，由服务端负责上游模型访问、凭据和必要的网络路由。这是通过 Hermes 使用模型，不是直接登录官方 ChatGPT / Claude App，也不意味着其订阅可直接用于 Hermes。
