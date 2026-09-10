@@ -1,0 +1,5 @@
+-keepattributes Signature,*Annotation*
+-dontwarn org.conscrypt.**
+-keep class com.k2fsa.sherpa.onnx.** { *; }
+-keep class com.sun.jna.** { *; }
+-dontwarn com.sun.jna.**
