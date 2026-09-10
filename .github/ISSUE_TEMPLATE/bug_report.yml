@@ -1,0 +1,29 @@
+name: Bug report / 问题反馈
+description: Report a reproducible app issue without private data.
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include passwords, cookies, tickets, private server addresses or chat logs. Security issues: see SECURITY.md."
+  - type: input
+    id: version
+    attributes:
+      label: App version / build source
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Android version, device and input method
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps, expected result and actual result
+    validations:
+      required: true
+  - type: textarea
+    id: backend
+    attributes:
+      label: Backend version and sanitized evidence
+      description: Include only non-sensitive version information and redacted screenshots.
