@@ -77,7 +77,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation(files("libs/sherpa-onnx-1.13.2.aar"))
-    implementation("org.apache.commons:commons-compress:1.27.1")
+    implementation("org.apache.commons:commons-compress:1.28.0")
 
     testImplementation(composeBom)
     testImplementation("androidx.compose.ui:ui-test-junit4")
