@@ -17,6 +17,14 @@ catgo-gpt connects directly to an existing compatible Hermes Web deployment. Eac
 
 **The app simplifies access, not server-side authorization.** Concurrent users, account permissions and conversation isolation depend on your Web deployment. A shared account does not provide separate private spaces.
 
+## Use from mainland China without a device-side VPN
+
+With an appropriately configured Hermes server, your Android device can access OpenAI GPT models (the models behind ChatGPT), Claude and other supported providers through Hermes without running a VPN or proxy on the phone. The phone connects to your Hermes Web endpoint; the server handles upstream model access, credentials and any required network routing. This is access through Hermes, not a replacement login for the official ChatGPT or Claude apps or their subscriptions.
+
+If Hermes Web is hosted on your local network or within mainland China and is directly reachable, core chat traffic can stay between the phone and that local/domestic endpoint. **This is a deployment option, not a guarantee that every Android request stays inside the GFW.** A reachable endpoint outside mainland China still involves cross-border traffic. First-use speech model downloads currently use GitHub; explicitly selected system speech recognition and some TTS voices may also contact external services.
+
+**Configure and test Hermes Web before using this app:** verify that the phone can reach the Web interface without a VPN, sign in, and receive answers from each intended model. Provider credentials, model availability and upstream connectivity must already work on the server. The app does not bypass network restrictions or fix an inaccessible or misconfigured Hermes deployment.
+
 ## Screenshots
 
 Actual Compose screens rendered in a local Android test environment with demonstration messages, not design mockups or physical-device/live-service acceptance results. The app defaults to English and also supports Chinese.
