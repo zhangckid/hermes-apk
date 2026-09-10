@@ -1,0 +1,3 @@
+<resources>
+    <string name="server_address_invalid">Enter a valid HTTPS server address.</string>
+</resources>

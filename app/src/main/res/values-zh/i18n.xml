@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_text_0" formatted="false">" 代码内容已省略。 "</string>
+    <string name="app_text_1" formatted="false">" 图片。 "</string>
+    <string name="app_text_2" formatted="false">" 详细内容请看文字。"</string>
+    <string name="app_text_3" formatted="false">"。详细内容请看文字。"</string>
+    <string name="app_text_4" formatted="false">"Hermes 启动超时，请稍后重试"</string>
+    <string name="app_text_5" formatted="false">"Hermes 正在处理"</string>
+    <string name="app_text_6" formatted="false">"M月d日"</string>
+    <string name="app_text_17" formatted="false">"上一段语音仍在处理中，请稍候"</string>
+    <string name="app_text_18" formatted="false">"上次终端输出"</string>
+    <string name="app_text_19" formatted="false">"之前信任的指纹"</string>
+    <string name="app_text_20" formatted="false">"今天想一起做什么？"</string>
+    <string name="app_text_21" formatted="false">"会话历史"</string>
+    <string name="app_text_22" formatted="false">"使用 HTTPS / WSS 安全连接"</string>
+    <string name="app_text_23" formatted="false">"信任并连接"</string>
+    <string name="app_text_24" formatted="false">"停止"</string>
+    <string name="app_text_25" formatted="false">"停止离线语音输入"</string>
+    <string name="app_text_26" formatted="false">"停止语音输入"</string>
+    <string name="app_text_27" formatted="false">"关闭"</string>
+    <string name="app_text_28" formatted="false">"刷新"</string>
+    <string name="app_text_30" formatted="false">"单张图片不能超过 20 MB"</string>
+    <string name="app_text_31" formatted="false">"发消息给 Hermes…"</string>
+    <string name="app_text_32" formatted="false">"发送"</string>
+    <string name="app_text_33" formatted="false">"取消"</string>
+    <string name="app_text_34" formatted="false">"取消连接"</string>
+    <string name="app_text_35" formatted="false">"只填写域名或 IP，协议和端口请分开填写"</string>
+    <string name="app_text_36" formatted="false">"只支持图片文件"</string>
+    <string name="app_text_37" formatted="false">"可以输入文字、说话，或添加图片。"</string>
+    <string name="app_text_38" formatted="false">"可用推理档位取决于模型；不支持的设置以服务器校验结果为准。"</string>
+    <string name="app_text_39" formatted="false">"命令 / 交互输入"</string>
+    <string name="app_text_40" formatted="false">"图片发送失败"</string>
+    <string name="app_text_41" formatted="false">"密码"</string>
+    <string name="app_text_42" formatted="false">"密码认证；适合日志和命令行调试，不支持 vim 等全屏终端程序。"</string>
+    <string name="app_text_43" formatted="false">"尚未确认消息是否送达，请刷新会话后再决定是否重试（未自动重发）"</string>
+    <string name="app_text_44" formatted="false">"尚未配置服务器"</string>
+    <string name="app_text_45" formatted="false">"尝试次数过多，请稍后重试"</string>
+    <string name="app_text_46" formatted="false">"工具"</string>
+    <string name="app_text_47" formatted="false">"应用内语音识别不可用"</string>
+    <string name="app_text_48" formatted="false">"应用并新建对话"</string>
+    <string name="app_text_49" formatted="false">"当前语言的识别模型尚未安装"</string>
+    <string name="app_text_50" formatted="false">"录音失败"</string>
+    <string name="app_text_51" formatted="false">"录音时间太短，请说完后再停止"</string>
+    <string name="app_text_52" formatted="false">"我已通过可信渠道核对指纹"</string>
+    <string name="app_text_53" formatted="false">"找不到服务器，请检查地址"</string>
+    <string name="app_text_54" formatted="false">"搜索对话"</string>
+    <string name="app_text_55" formatted="false">"操作失败，请重试"</string>
+    <string name="app_text_56" formatted="false">"断开"</string>
+    <string name="app_text_57" formatted="false">"新对话"</string>
+    <string name="app_text_58" formatted="false">"无法安装离线模型"</string>
+    <string name="app_text_59" formatted="false">"无法登录，请检查 fnOS 是否已开启，并确认服务器和账号信息。具体原因："</string>
+    <string name="app_text_60" formatted="false">"无法读取图片"</string>
+    <string name="app_text_61" formatted="false">"无法读取麦克风音频"</string>
+    <string name="app_text_62" formatted="false">"无法连接服务器，请检查地址和端口"</string>
+    <string name="app_text_63" formatted="false">"无法验证服务器证书"</string>
+    <string name="app_text_64" formatted="false">"显示密码"</string>
+    <string name="app_text_65" formatted="false">"替换信任并连接"</string>
+    <string name="app_text_66" formatted="false">"最近"</string>
+    <string name="app_text_67" formatted="false">"服务商"</string>
+    <string name="app_text_68" formatted="false">"服务器"</string>
+    <string name="app_text_69" formatted="false">"服务器地址不能包含空格"</string>
+    <string name="app_text_70" formatted="false">"服务器提示该模型需要额外费用确认。确定后才继续应用。"</string>
+    <string name="app_text_71" formatted="false">"服务器没有提供证书"</string>
+    <string name="app_text_72" formatted="false">"服务器没有返回 WebSocket 票据"</string>
+    <string name="app_text_73" formatted="false">"服务器没有返回图片路径"</string>
+    <string name="app_text_74" formatted="false">"服务器设置"</string>
+    <string name="app_text_75" formatted="false">"服务器证书校验失败，请检查 HTTPS 证书链"</string>
+    <string name="app_text_76" formatted="false">"服务器返回错误"</string>
+    <string name="app_text_77" formatted="false">"服务器配置会保留；密码和登录凭据由 Android Keystore 加密，用于自动重联。"</string>
+    <string name="app_text_78" formatted="false">"朗读失败，请检查系统语音包或网络连接。"</string>
+    <string name="app_text_79" formatted="false">"朗读精简要点，文字保留完整回答"</string>
+    <string name="app_text_80" formatted="false">"未命名对话"</string>
+    <string name="app_text_82" formatted="false">"模型"</string>
+    <string name="app_text_83" formatted="false">"模型下载响应为空"</string>
+    <string name="app_text_84" formatted="false">"模型下载失败"</string>
+    <string name="app_text_85" formatted="false">"模型与 Reasoning"</string>
+    <string name="app_text_86" formatted="false">"模型压缩包缺少必要文件"</string>
+    <string name="app_text_87" formatted="false">"模型文件校验失败"</string>
+    <string name="app_text_88" formatted="false">"模型文件过大"</string>
+    <string name="app_text_89" formatted="false">"正在切换到系统语音识别"</string>
+    <string name="app_text_90" formatted="false">"正在识别完整语句"</string>
+    <string name="app_text_91" formatted="false">"没有可用的朗读语音，请在系统文字转语音设置中安装相应语言的语音包。"</string>
+    <string name="app_text_92" formatted="false">"没有听清，请再试一次"</string>
+    <string name="app_text_93" formatted="false">"没有检测到语音"</string>
+    <string name="app_text_94" formatted="false">"没有识别到文字，请再试一次"</string>
+    <string name="app_text_95" formatted="false">"没有识别到清晰语音，请靠近麦克风后重试"</string>
+    <string name="app_text_96" formatted="false">"没有麦克风权限"</string>
+    <string name="app_text_97" formatted="false">"添加图片"</string>
+    <string name="app_text_98" formatted="false">"清空显示"</string>
+    <string name="app_text_100" formatted="false">"用户名"</string>
+    <string name="app_text_101" formatted="false">"用户名、密码错误或登录已过期"</string>
+    <string name="app_text_102" formatted="false">"确认费用并应用"</string>
+    <string name="app_text_103" formatted="false">"离线语音识别器已经关闭"</string>
+    <string name="app_text_104" formatted="false">"离线语音识别已开始"</string>
+    <string name="app_text_105" formatted="false">"离线语音输入"</string>
+    <string name="app_text_106" formatted="false">"移除图片"</string>
+    <string name="app_text_107" formatted="false">"端口"</string>
+    <string name="app_text_108" formatted="false">"端口必须在 1 到 65535 之间"</string>
+    <string name="app_text_109" formatted="false">"等待回答超时，可下拉刷新后重试"</string>
+    <string name="app_text_110" formatted="false">"系统不支持当前语言"</string>
+    <string name="app_text_111" formatted="false">"系统语音服务不可用，已切换到离线识别，请再次点击麦克风"</string>
+    <string name="app_text_112" formatted="false">"系统语音识别没有返回文字"</string>
+    <string name="app_text_113" formatted="false">"聊天尚未连接"</string>
+    <string name="app_text_114" formatted="false">"聊天连接失败"</string>
+    <string name="app_text_115" formatted="false">"聊天连接已断开"</string>
+    <string name="app_text_116" formatted="false">"解压后的模型过大"</string>
+    <string name="app_text_118" formatted="false">"设备无法创建 16 kHz 语音录音"</string>
+    <string name="app_text_119" formatted="false">"设备没有系统语音服务，正在下载约 75 MB 的高精度中文离线模型"</string>
+    <string name="app_text_120" formatted="false">"设置作用于服务器 default 配置，与网页版共享。应用后会开启新对话，旧会话保留。"</string>
+    <string name="app_text_121" formatted="false">"设置未全部完成，请重新读取确认。\n"</string>
+    <string name="app_text_122" formatted="false">"语音回答"</string>
+    <string name="app_text_123" formatted="false">"语音引擎不可用，请检查系统文字转语音设置。"</string>
+    <string name="app_text_124" formatted="false">"语音引擎无法朗读，请检查已安装的语音数据。"</string>
+    <string name="app_text_125" formatted="false">"语音设置"</string>
+    <string name="app_text_126" formatted="false">"语音识别失败"</string>
+    <string name="app_text_127" formatted="false">"语音识别服务暂时不可用"</string>
+    <string name="app_text_128" formatted="false">"语音识别服务正忙，请稍后重试"</string>
+    <string name="app_text_129" formatted="false">"语音识别网络不可用"</string>
+    <string name="app_text_130" formatted="false">"语音请求过多，请稍后重试"</string>
+    <string name="app_text_131" formatted="false">"语音输入"</string>
+    <string name="app_text_132" formatted="false">"请分析我发送的图片"</string>
+    <string name="app_text_133" formatted="false">"请等待运行中的回答结束后再切换模型"</string>
+    <string name="app_text_134" formatted="false">"请说出你想发送的内容"</string>
+    <string name="app_text_138" formatted="false">"请输入密码"</string>
+    <string name="app_text_139" formatted="false">"请输入服务器地址"</string>
+    <string name="app_text_140" formatted="false">"请输入用户名"</string>
+    <string name="app_text_141" formatted="false">"请选择"</string>
+    <string name="app_text_142" formatted="false">"请通过可信渠道与服务器管理员核对以下 SHA-256 指纹。确认前不会发送密码。"</string>
+    <string name="app_text_143" formatted="false">"跟随输出"</string>
+    <string name="app_text_144" formatted="false">"返回"</string>
+    <string name="app_text_145" formatted="false">"这可能表示服务器重装，也可能是中间人攻击。无法确认时请取消。"</string>
+    <string name="app_text_147" formatted="false">"连接你的 Hermes Agent"</string>
+    <string name="app_text_148" formatted="false">"连接并登录"</string>
+    <string name="app_text_149" formatted="false">"退出登录"</string>
+    <string name="app_text_150" formatted="false">"重新读取服务器设置"</string>
+    <string name="app_text_151" formatted="false">"重新连接"</string>
+    <string name="app_text_152" formatted="false">"错误码"</string>
+    <string name="app_text_153" formatted="false">"隐藏密码"</string>
+    <string name="app_text_154" formatted="false">"需要麦克风权限才能使用语音输入"</string>
+    <string name="app_text_155" formatted="false">"高精度离线模型尚未准备好"</string>
+    <string name="app_text_156" formatted="false">"麦克风初始化失败"</string>
+    <string name="app_text_157" formatted="false">"麦克风录音中断"</string>
+    <string name="terminal_help">支持 ANSI 颜色、光标控制及全屏终端；使用服务器默认 shell（包括 zsh）。</string>
+    <string name="terminal_failed">终端不可用，请返回配置页重新连接</string>
+    <string name="terminal_settings">连接设置</string>
+    <string name="terminal_paste">粘贴</string>
+    <string name="terminal_keyboard">键盘</string>
+    <string name="terminal_paste_confirm">确认粘贴到终端</string>
+    <string name="terminal_paste_warning">粘贴内容可能立即执行命令，请先核对。</string>
+    <string name="hermes_interaction_title">Hermes 交互终端</string>
+    <string name="hermes_interaction_question">Hermes 需要你的回答</string>
+    <string name="hermes_interaction_approval">命令授权请求</string>
+    <string name="hermes_interaction_secret">Hermes 密码请求</string>
+    <string name="hermes_interaction_back">返回聊天</string>
+    <string name="hermes_interaction_open">交互</string>
+    <string name="hermes_interaction_pending">Hermes 正在等待你的回应，点此打开</string>
+    <string name="hermes_interaction_warning">这是当前会话的实时终端。请核对问题或完整命令后操作；不会自动授权。返回聊天不会批准或取消请求。</string>
+    <string name="hermes_interaction_reconnect">连接恢复后再打开交互终端</string>
+    <string name="hermes_interaction_failed">交互发送失败，未自动重发</string>
+    <string name="terminal_load_failed">终端资源加载失败</string>
+    <string name="terminal_script_failed">终端脚本运行失败</string>
+    <string name="terminal_timeout">终端启动超时</string>
+    <string name="terminal_renderer_failed">系统 WebView 进程已退出</string>
+    <string name="terminal_output_limit">终端输出积压过多</string>
+    <string name="terminal_input_limit">终端输入内容过长</string>
+    <string name="terminal_retry">重试加载终端</string>
+    <string name="terminal_retry_help">聊天连接和待回答的问题已保留，重试仅重新加载终端，不会发送回答或授权。</string>
+    <string name="prompt_question">Hermes 想问你</string>
+    <string name="prompt_approval">请确认这条命令</string>
+    <string name="prompt_secret">Hermes 需要密码或密钥</string>
+    <string name="prompt_incomplete">正在核对完整请求，暂不能提交；若持续如此，请在网页版处理。</string>
+    <string name="prompt_truncated">服务器返回的内容被截断，暂不允许授权或回答。</string>
+    <string name="prompt_pending">已提交，等待 Hermes 确认…</string>
+    <string name="prompt_secret_input">密码或密钥（不保存到聊天）</string>
+    <string name="prompt_secret_send">提交密码</string>
+    <string name="prompt_secret_skip">跳过密码请求</string>
+    <string name="prompt_confirm">确认选择</string>
+    <string name="prompt_reply_hint">在下方输入框直接回答即可</string>
+    <string name="prompt_failed">回应未发送，请确认当前问题后重试</string>
+    <string name="prompt_allow_once">仅允许这一次</string>
+    <string name="prompt_deny">拒绝执行</string>
+    <string name="prompt_full">查看完整命令</string>
+    <string name="prompt_other">其他：直接输入回答</string>
+    <string name="prompt_other_active">其他：在下方输入回答</string>
+    <string name="voice_system_title" formatted="false">系统语音输入</string>
+    <string name="voice_system_hint" formatted="false">系统语音可能联网；识别结果将自动发送。</string>
+    <string name="voice_offline_hint" formatted="false">默认在本机离线识别，识别结果将自动发送。首次使用需要下载模型。</string>
+    <string name="voice_return_offline" formatted="false">返回离线语音</string>
+    <string name="voice_try_system" formatted="false">尝试系统语音</string>
+    <string name="voice_model_download" formatted="false">首次使用，正在下载约 75 MB 的离线语音模型</string>
+    <string name="voice_offline_listening" formatted="false">正在离线聆听，点击停止后识别</string>
+    <string name="voice_downloading" formatted="false">正在下载离线模型</string>
+    <string name="voice_processing" formatted="false">正在准备或识别语音…</string>
+    <string name="voice_start_offline" formatted="false">点击麦克风开始离线识别</string>
+</resources>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_text_0" formatted="false">" Code omitted. "</string>
+    <string name="app_text_1" formatted="false">" Image. "</string>
+    <string name="app_text_2" formatted="false">" See the text for details."</string>
+    <string name="app_text_3" formatted="false">". See the text for details."</string>
+    <string name="app_text_4" formatted="false">"Hermes startup timed out. Please try again."</string>
+    <string name="app_text_5" formatted="false">"Hermes is working"</string>
+    <string name="app_text_6" formatted="false">"MMM d"</string>
+    <string name="app_text_17" formatted="false">"The previous recording is still being processed. Please wait."</string>
+    <string name="app_text_18" formatted="false">"Previous terminal output"</string>
+    <string name="app_text_19" formatted="false">"Previously trusted fingerprint"</string>
+    <string name="app_text_20" formatted="false">"What would you like to work on?"</string>
+    <string name="app_text_21" formatted="false">"Chat history"</string>
+    <string name="app_text_22" formatted="false">"Secure connection using HTTPS / WSS"</string>
+    <string name="app_text_23" formatted="false">"Trust and connect"</string>
+    <string name="app_text_24" formatted="false">"Stop"</string>
+    <string name="app_text_25" formatted="false">"Stop offline voice input"</string>
+    <string name="app_text_26" formatted="false">"Stop voice input"</string>
+    <string name="app_text_27" formatted="false">"Close"</string>
+    <string name="app_text_28" formatted="false">"Refresh"</string>
+    <string name="app_text_30" formatted="false">"Each image must be 20 MB or smaller."</string>
+    <string name="app_text_31" formatted="false">"Message Hermes…"</string>
+    <string name="app_text_32" formatted="false">"Send"</string>
+    <string name="app_text_33" formatted="false">"Cancel"</string>
+    <string name="app_text_34" formatted="false">"Cancel connection"</string>
+    <string name="app_text_35" formatted="false">"Enter only the domain or IP. Enter the port separately, without a protocol."</string>
+    <string name="app_text_36" formatted="false">"Only image files are supported."</string>
+    <string name="app_text_37" formatted="false">"Type, speak, or add an image."</string>
+    <string name="app_text_38" formatted="false">"Reasoning levels depend on the model. The server validates unsupported settings."</string>
+    <string name="app_text_39" formatted="false">"Command / interactive input"</string>
+    <string name="app_text_40" formatted="false">"Image send failed"</string>
+    <string name="app_text_41" formatted="false">"Password"</string>
+    <string name="app_text_42" formatted="false">"Password authentication. Designed for logs and command-line debugging, not full-screen applications such as vim."</string>
+    <string name="app_text_43" formatted="false">"Delivery is unconfirmed. Refresh the chat before deciding to retry. The message was not resent."</string>
+    <string name="app_text_44" formatted="false">"No server configured"</string>
+    <string name="app_text_45" formatted="false">"Too many attempts. Please try again later."</string>
+    <string name="app_text_46" formatted="false">"Tool"</string>
+    <string name="app_text_47" formatted="false">"In-app speech recognition is unavailable."</string>
+    <string name="app_text_48" formatted="false">"Apply and start new chat"</string>
+    <string name="app_text_49" formatted="false">"The recognition model for this language is not installed."</string>
+    <string name="app_text_50" formatted="false">"Recording failed"</string>
+    <string name="app_text_51" formatted="false">"Recording is too short. Finish speaking before stopping."</string>
+    <string name="app_text_52" formatted="false">"I verified this fingerprint through a trusted channel"</string>
+    <string name="app_text_53" formatted="false">"Server not found. Check the address."</string>
+    <string name="app_text_54" formatted="false">"Search chats"</string>
+    <string name="app_text_55" formatted="false">"Operation failed. Please try again."</string>
+    <string name="app_text_56" formatted="false">"Disconnect"</string>
+    <string name="app_text_57" formatted="false">"New chat"</string>
+    <string name="app_text_58" formatted="false">"Unable to install the offline model"</string>
+    <string name="app_text_59" formatted="false">"Unable to sign in. Check that fnOS is running and verify the server and account details. Reason: "</string>
+    <string name="app_text_60" formatted="false">"Unable to read the image"</string>
+    <string name="app_text_61" formatted="false">"Unable to read microphone audio"</string>
+    <string name="app_text_62" formatted="false">"Unable to connect. Check the server address and port."</string>
+    <string name="app_text_63" formatted="false">"Unable to verify the server certificate"</string>
+    <string name="app_text_64" formatted="false">"Show password"</string>
+    <string name="app_text_65" formatted="false">"Replace trust and connect"</string>
+    <string name="app_text_66" formatted="false">"Recent"</string>
+    <string name="app_text_67" formatted="false">"Provider"</string>
+    <string name="app_text_68" formatted="false">"Server"</string>
+    <string name="app_text_69" formatted="false">"Server address must not contain spaces."</string>
+    <string name="app_text_70" formatted="false">"The server requires additional cost confirmation for this model. Confirm to proceed."</string>
+    <string name="app_text_71" formatted="false">"The server did not provide a certificate."</string>
+    <string name="app_text_72" formatted="false">"The server did not return a WebSocket ticket."</string>
+    <string name="app_text_73" formatted="false">"The server did not return an image path."</string>
+    <string name="app_text_74" formatted="false">"Server settings"</string>
+    <string name="app_text_75" formatted="false">"Server certificate verification failed. Check the HTTPS certificate chain."</string>
+    <string name="app_text_76" formatted="false">"Server returned an error"</string>
+    <string name="app_text_77" formatted="false">"Server settings are retained. Passwords and session credentials are encrypted with Android Keystore for reconnection."</string>
+    <string name="app_text_78" formatted="false">"Speech playback failed. Check your voice data or network connection."</string>
+    <string name="app_text_79" formatted="false">"Read a short summary; keep the full answer on screen"</string>
+    <string name="app_text_80" formatted="false">"Untitled chat"</string>
+    <string name="app_text_82" formatted="false">"Model"</string>
+    <string name="app_text_83" formatted="false">"Empty model download response"</string>
+    <string name="app_text_84" formatted="false">"Model download failed"</string>
+    <string name="app_text_85" formatted="false">"Model and reasoning"</string>
+    <string name="app_text_86" formatted="false">"Required files are missing from the model archive."</string>
+    <string name="app_text_87" formatted="false">"Model file verification failed"</string>
+    <string name="app_text_88" formatted="false">"Model file is too large"</string>
+    <string name="app_text_89" formatted="false">"Switching to system speech recognition"</string>
+    <string name="app_text_90" formatted="false">"Recognizing your recording"</string>
+    <string name="app_text_91" formatted="false">"No suitable voice is available. Install voice data for this language in system text-to-speech settings."</string>
+    <string name="app_text_92" formatted="false">"No clear match. Please try again."</string>
+    <string name="app_text_93" formatted="false">"No speech detected"</string>
+    <string name="app_text_94" formatted="false">"No text recognized. Please try again."</string>
+    <string name="app_text_95" formatted="false">"No clear speech recognized. Move closer to the microphone and try again."</string>
+    <string name="app_text_96" formatted="false">"Microphone permission is missing."</string>
+    <string name="app_text_97" formatted="false">"Add image"</string>
+    <string name="app_text_98" formatted="false">"Clear display"</string>
+    <string name="app_text_100" formatted="false">"Username"</string>
+    <string name="app_text_101" formatted="false">"Incorrect username or password, or the session has expired."</string>
+    <string name="app_text_102" formatted="false">"Confirm cost and apply"</string>
+    <string name="app_text_103" formatted="false">"Offline speech recognizer is closed."</string>
+    <string name="app_text_104" formatted="false">"Offline speech recognition started"</string>
+    <string name="app_text_105" formatted="false">"Offline voice input"</string>
+    <string name="app_text_106" formatted="false">"Remove image"</string>
+    <string name="app_text_107" formatted="false">"Port"</string>
+    <string name="app_text_108" formatted="false">"Port must be between 1 and 65535."</string>
+    <string name="app_text_109" formatted="false">"Timed out waiting for an answer. Refresh the chat before retrying."</string>
+    <string name="app_text_110" formatted="false">"The system does not support this language."</string>
+    <string name="app_text_111" formatted="false">"System speech recognition is unavailable. Switched to offline recognition; tap the microphone again."</string>
+    <string name="app_text_112" formatted="false">"System speech recognition did not return any text."</string>
+    <string name="app_text_113" formatted="false">"Chat is not connected yet."</string>
+    <string name="app_text_114" formatted="false">"Chat connection failed"</string>
+    <string name="app_text_115" formatted="false">"Chat connection lost"</string>
+    <string name="app_text_116" formatted="false">"Extracted model is too large"</string>
+    <string name="app_text_118" formatted="false">"This device cannot record 16 kHz audio."</string>
+    <string name="app_text_119" formatted="false">"No system speech service. Downloading an approximately 75 MB offline Chinese/English model."</string>
+    <string name="app_text_120" formatted="false">"Settings affect the server default profile and are shared with the web app. Applying starts a new chat and keeps existing chats."</string>
+    <string name="app_text_121" formatted="false">"Some settings were not applied. Reload to verify.\n"</string>
+    <string name="app_text_122" formatted="false">"Voice replies"</string>
+    <string name="app_text_123" formatted="false">"Speech engine unavailable. Check system text-to-speech settings."</string>
+    <string name="app_text_124" formatted="false">"The speech engine cannot speak. Check installed voice data."</string>
+    <string name="app_text_125" formatted="false">"Speech settings"</string>
+    <string name="app_text_126" formatted="false">"Speech recognition failed"</string>
+    <string name="app_text_127" formatted="false">"Speech recognition is temporarily unavailable."</string>
+    <string name="app_text_128" formatted="false">"Speech recognition is busy. Try again shortly."</string>
+    <string name="app_text_129" formatted="false">"Speech recognition network is unavailable."</string>
+    <string name="app_text_130" formatted="false">"Too many speech requests. Try again later."</string>
+    <string name="app_text_131" formatted="false">"Voice input"</string>
+    <string name="app_text_132" formatted="false">"Please analyze the images I sent."</string>
+    <string name="app_text_133" formatted="false">"Wait for running answers to finish before changing models."</string>
+    <string name="app_text_134" formatted="false">"Say the message you want to send"</string>
+    <string name="app_text_138" formatted="false">"Enter a password"</string>
+    <string name="app_text_139" formatted="false">"Enter a server address"</string>
+    <string name="app_text_140" formatted="false">"Enter a username"</string>
+    <string name="app_text_141" formatted="false">"Select"</string>
+    <string name="app_text_142" formatted="false">"Verify this SHA-256 fingerprint with the server administrator through a trusted channel. No password is sent before confirmation."</string>
+    <string name="app_text_143" formatted="false">"Follow output"</string>
+    <string name="app_text_144" formatted="false">"Back"</string>
+    <string name="app_text_145" formatted="false">"This may indicate a reinstalled server or a man-in-the-middle attack. Cancel if you cannot verify it."</string>
+    <string name="app_text_147" formatted="false">"Connect to your Hermes Agent"</string>
+    <string name="app_text_148" formatted="false">"Connect and sign in"</string>
+    <string name="app_text_149" formatted="false">"Sign out"</string>
+    <string name="app_text_150" formatted="false">"Reload server settings"</string>
+    <string name="app_text_151" formatted="false">"Reconnect"</string>
+    <string name="app_text_152" formatted="false">"Error code"</string>
+    <string name="app_text_153" formatted="false">"Hide password"</string>
+    <string name="app_text_154" formatted="false">"Microphone permission is required for voice input."</string>
+    <string name="app_text_155" formatted="false">"The offline recognition model is not ready."</string>
+    <string name="app_text_156" formatted="false">"Microphone initialization failed"</string>
+    <string name="app_text_157" formatted="false">"Microphone recording interrupted"</string>
+    <string name="terminal_help">ANSI colors, cursor control and full-screen terminals. Uses the server’s default shell, including zsh.</string>
+    <string name="terminal_failed">Terminal unavailable. Return to connection settings and reconnect.</string>
+    <string name="terminal_settings">Connection settings</string>
+    <string name="terminal_paste">Paste</string>
+    <string name="terminal_keyboard">Keyboard</string>
+    <string name="terminal_paste_confirm">Confirm terminal paste</string>
+    <string name="terminal_paste_warning">Pasted text may execute commands immediately. Review it first.</string>
+    <string name="hermes_interaction_title">Hermes interactive terminal</string>
+    <string name="hermes_interaction_question">Hermes needs your answer</string>
+    <string name="hermes_interaction_approval">Command approval request</string>
+    <string name="hermes_interaction_secret">Hermes password request</string>
+    <string name="hermes_interaction_back">Back to chat</string>
+    <string name="hermes_interaction_open">Interact</string>
+    <string name="hermes_interaction_pending">Hermes is waiting for your response. Tap to open.</string>
+    <string name="hermes_interaction_warning">This is the current session’s live terminal. Review the question or full command before responding. Nothing is approved automatically. Returning to chat does not approve or cancel the request.</string>
+    <string name="hermes_interaction_reconnect">Reopen the interactive terminal after the connection recovers.</string>
+    <string name="hermes_interaction_failed">Interactive input failed. It was not resent.</string>
+    <string name="terminal_load_failed">Terminal resources failed to load</string>
+    <string name="terminal_script_failed">Terminal script failed</string>
+    <string name="terminal_timeout">Terminal startup timed out</string>
+    <string name="terminal_renderer_failed">The system WebView process exited</string>
+    <string name="terminal_output_limit">Terminal output backlog exceeded the limit</string>
+    <string name="terminal_input_limit">Terminal input is too long</string>
+    <string name="terminal_retry">Reload terminal</string>
+    <string name="terminal_retry_help">Your chat connection and pending question are retained. Retrying reloads only the terminal; it sends no answer or approval.</string>
+    <string name="prompt_question">Hermes has a question</string>
+    <string name="prompt_approval">Review this command</string>
+    <string name="prompt_secret">Hermes needs a password or secret</string>
+    <string name="prompt_incomplete">Waiting for a complete supported request. If this persists, handle it on the web client.</string>
+    <string name="prompt_truncated">The server truncated this request. Approval or answering is disabled.</string>
+    <string name="prompt_pending">Submitted, waiting for Hermes…</string>
+    <string name="prompt_secret_input">Password or secret (not saved to chat)</string>
+    <string name="prompt_secret_send">Submit secret</string>
+    <string name="prompt_secret_skip">Skip secret request</string>
+    <string name="prompt_confirm">Confirm selection</string>
+    <string name="prompt_reply_hint">Reply in the message box below</string>
+    <string name="prompt_failed">Response not sent. Review the current question and try again.</string>
+    <string name="prompt_allow_once">Allow once</string>
+    <string name="prompt_deny">Deny</string>
+    <string name="prompt_full">Show full command</string>
+    <string name="prompt_other">Other (type your answer)</string>
+    <string name="prompt_other_active">Other (type below)</string>
+    <string name="voice_system_title" formatted="false">System voice input</string>
+    <string name="voice_system_hint" formatted="false">System speech may use the network. Recognized text is sent automatically.</string>
+    <string name="voice_offline_hint" formatted="false">Offline recognition runs on this device by default. Recognized text is sent automatically. First use requires a model download.</string>
+    <string name="voice_return_offline" formatted="false">Return to offline speech</string>
+    <string name="voice_try_system" formatted="false">Try system speech</string>
+    <string name="voice_model_download" formatted="false">First use: downloading an approximately 75 MB offline speech model.</string>
+    <string name="voice_offline_listening" formatted="false">Listening offline. Tap stop to recognize.</string>
+    <string name="voice_downloading" formatted="false">Downloading offline model</string>
+    <string name="voice_processing" formatted="false">Preparing or recognizing speech…</string>
+    <string name="voice_start_offline" formatted="false">Tap the microphone to start offline recognition</string>
+</resources>
