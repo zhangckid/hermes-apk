@@ -12,7 +12,7 @@ tested web backend repository/revision and deployment requirements.
 | POST | `/auth/password-login` | Username/password authentication |
 | GET | `/api/auth/me` | Verify the current authenticated session |
 | POST | `/api/auth/ws-ticket` | Obtain a WebSocket ticket |
-| WSS | `/api/pty` | Conversation input, status and interactive prompts |
+| WSS / WS | `/api/pty` | Conversation input, status and interactive prompts |
 | GET | `/api/sessions`, `/api/sessions/search` | Session list/search |
 | GET | `/api/sessions/{id}/messages` | Final structured history |
 | POST | `/api/chat/image-upload` | Upload selected images |
@@ -21,9 +21,11 @@ tested web backend repository/revision and deployment requirements.
 | GET/PUT | `/api/config` | Read/update reasoning configuration |
 | POST | `/auth/logout` | End the login session |
 
-The final HTTPS origin must be entered directly. Redirects are not followed. Host/path pasted from a
+The final HTTP/HTTPS origin must be entered directly. HTTPS is the default; HTTP is explicit opt-in with
+an unencrypted-transport warning. WebSockets use WSS for HTTPS and WS for HTTP. The selected protocol is
+persisted; legacy configurations default to HTTPS. A pasted URL must match the selected protocol. Redirects are not followed. Host/path pasted from a
 web URL is normalized to the origin; the separate port field takes precedence. URL credentials and
-query/fragment parameters are rejected. Cookies and WebSocket tickets must not be logged.
+query/fragment parameters are rejected. Cookies and WebSocket tickets must not be logged. Secure cookies are not downgraded for HTTP servers.
 
 Model/reasoning changes target the server's `default` profile and may affect other clients using it.
 Expensive models require explicit confirmation. This is not a per-device-only preference.

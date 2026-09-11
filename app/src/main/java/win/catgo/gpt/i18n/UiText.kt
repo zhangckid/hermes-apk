@@ -24,6 +24,9 @@ object UiText {
         return localized(context).getString(id)
     }
     private val resources = mapOf(
+        "连接协议" to R.string.connection_protocol,
+        "HTTP 未加密：账号、密码和聊天内容可能被窃听或篡改。仅在可信网络使用。" to R.string.connection_http_warning,
+        "使用 HTTP / WS 明文连接" to R.string.connection_http_hint,
         "请输入有效的 HTTPS 服务器地址" to R.string.server_address_invalid,
         "系统语音输入" to R.string.voice_system_title,
         "System voice input" to R.string.voice_system_title,

@@ -212,6 +212,7 @@ internal fun LoginScreen(
     snackbarHostState: SnackbarHostState,
     onLogin: (ServerConfig, String) -> Unit,
 ) {
+    var scheme by rememberSaveable(savedConfig) { mutableStateOf(savedConfig?.scheme ?: "https") }
     var host by rememberSaveable(savedConfig) { mutableStateOf(savedConfig?.host ?: "") }
     var port by rememberSaveable(savedConfig) { mutableStateOf(savedConfig?.port?.toString() ?: "443") }
     var username by rememberSaveable(savedConfig) { mutableStateOf(savedConfig?.username ?: "") }
@@ -222,6 +223,7 @@ internal fun LoginScreen(
         onLogin(
             ServerConfig(
                 host = host,
+                scheme = scheme,
                 port = port.toIntOrNull() ?: 0,
                 username = username,
             ),
@@ -266,6 +268,30 @@ internal fun LoginScreen(
                     shape = RoundedCornerShape(24.dp),
                 ) {
                     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                        Text(t("连接协议"), color = MutedText)
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            listOf("https", "http").forEach { option ->
+                                androidx.compose.material3.FilterChip(
+                                    selected = scheme == option,
+                                    onClick = {
+                                        if (scheme != option) {
+                                            if (port == (if (scheme == "https") "443" else "80")) {
+                                                port = if (option == "https") "443" else "80"
+                                            }
+                                            scheme = option
+                                        }
+                                    },
+                                    enabled = !busy,
+                                    label = { Text(option.uppercase()) },
+                                    modifier = Modifier.testTag("login-protocol-$option"),
+                                )
+                            }
+                        }
+                        if (scheme == "http") {
+                            Text(t("HTTP 未加密：账号、密码和聊天内容可能被窃听或篡改。仅在可信网络使用。"),
+                                color = MaterialTheme.colorScheme.error,
+                                modifier = Modifier.testTag("login-http-warning"))
+                        }
                         Text(t("服务器"), color = MutedText)
                         OutlinedTextField(
                             value = host,
@@ -277,14 +303,14 @@ internal fun LoginScreen(
                                 keyboardType = KeyboardType.Uri,
                                 imeAction = ImeAction.Next,
                             ),
-                            supportingText = { Text(t("使用 HTTPS / WSS 安全连接")) },
+                            supportingText = { Text(t(if (scheme == "https") "使用 HTTPS / WSS 安全连接" else "使用 HTTP / WS 明文连接")) },
                         )
                         OutlinedTextField(
                             value = port,
                             onValueChange = { value -> port = value.filter(Char::isDigit).take(5) },
                             modifier = Modifier.fillMaxWidth(),
                             label = { Text(t("端口")) },
-                            placeholder = { Text("443") },
+                            placeholder = { Text(if (scheme == "https") "443" else "80") },
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Number,
@@ -337,7 +363,7 @@ internal fun LoginScreen(
                                     color = Color.White,
                                 )
                             } else {
-                                Icon(Icons.Default.Lock, contentDescription = null)
+                                if (scheme == "https") Icon(Icons.Default.Lock, contentDescription = null)
                                 Spacer(Modifier.width(8.dp))
                                 Text(t("连接并登录"))
                             }

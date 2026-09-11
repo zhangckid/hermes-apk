@@ -145,7 +145,7 @@ class HermesClient(
             if (fresh) add("fresh=1")
             if (!resumeSessionId.isNullOrBlank()) add("resume=${encodeQuery(resumeSessionId)}")
         }.joinToString("&")
-        val wsUrl = url("/api/pty?$params").replaceFirst("https://", "wss://")
+        val wsUrl = requireConfig().webSocketBaseUrl + "/api/pty?$params"
         return client().newWebSocket(Request.Builder().url(wsUrl).build(), listener)
     }
 
@@ -175,7 +175,7 @@ class HermesClient(
                 .readTimeout(90, TimeUnit.SECONDS)
                 .writeTimeout(90, TimeUnit.SECONDS)
                 .pingInterval(15, TimeUnit.SECONDS)
-                .apply { ServerHttpPolicy.apply(this); TlsConfigurator.apply(this, context) }
+                .apply { ServerHttpPolicy.apply(this); ServerHttpPolicy.restrictToServer(this, config); TlsConfigurator.apply(this, context) }
                 .build()
                 .also {
                     cachedClient = it

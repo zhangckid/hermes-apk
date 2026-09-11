@@ -15,10 +15,15 @@ reproduction. Never attach real passwords, cookies, WebSocket tickets, private k
 
 ## Trust boundaries
 
-- The app sends text and selected images to the HTTPS server chosen by the user. That server and its
+- The app sends text and selected images to the HTTP/HTTPS server chosen by the user. That server and its
   model providers have their own data retention and command execution policies.
-- Login secrets and cookies use Android Keystore-backed encryption; host, port and username are regular
-  app preferences. Backups and cleartext network traffic are disabled in the manifest.
+- Login secrets and cookies use Android Keystore-backed encryption; protocol, host, port and username are regular
+  app preferences. Backups are disabled. Android's app-level cleartext permission is enabled to support user-defined HTTP hosts.
+- HTTPS is the default; HTTP requires explicit selection with a visible warning. HTTP/WS exposes credentials,
+  session tokens and chat content to interception and modification. Use only on trusted networks. The Hermes
+  client restricts requests to the saved scheme, host and port; redirects and automatic HTTPS downgrade remain
+  disabled. This client check is not an OS-wide cleartext restriction for other libraries or system services.
+  Secure cookies retain their normal HTTPS-only behavior.
 - The bundled intermediate certificates assist chain building; platform trust, expiry and hostname
   checks remain active. This is not arbitrary trust of self-signed certificates or exact Chrome behavior.
 - API redirects are disabled. Configure the final server origin rather than a redirecting URL.

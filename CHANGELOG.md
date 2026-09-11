@@ -3,8 +3,9 @@
 ## 1.0.0 — Unreleased (first public version)
 
 The public version sequence starts at 1.0.0. Earlier 1.1–1.4 builds were private development versions;
-Android versionCode continues at 19 so existing installations can upgrade without clearing data.
+Android versionCode continues at 20 so existing installations can upgrade without clearing data.
 
+- Add saved HTTP/HTTPS selection, matching WS/WSS transport, cleartext warnings and exact-origin request restrictions; HTTPS remains the default. App-level cleartext permission is enabled explicitly for user-defined HTTP hosts.
 - Adopt MIT for original project code and documentation.
 - Show `hermes-agent.nousresearch.com` as a grey host placeholder, without filling or connecting automatically.
 - Default new installations to English; preserve explicit Chinese/English selections and saved server settings.

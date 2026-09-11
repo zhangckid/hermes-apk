@@ -29,7 +29,7 @@ See [development](docs/DEVELOPMENT.md) and [backend compatibility](docs/PROTOCOL
 
 ```mermaid
 flowchart TD
-    App["catgo-gpt · 安卓客户端"] <-->|HTTPS / WSS| Web["现有 Hermes Web 接口"]
+    App["catgo-gpt · 安卓客户端"] <-->|HTTPS / WSS 或 HTTP / WS| Web["现有 Hermes Web 接口"]
     Browser["网页版浏览器"] <--> Web
     Web <--> Agent["Hermes Agent · 你的服务器"]
     Agent <--> Models["已配置的模型与工具"]
@@ -71,7 +71,7 @@ flowchart TD
         Summary --> TTS["Android TTS"]
     end
     Download["模型下载源 · 首次准备需联网"] -.-> Model
-    Chat <-->|HTTPS / WSS| Hermes["用户自己的 Hermes Web"]
+    Chat <-->|HTTPS / WSS 或 HTTP / WS| Hermes["用户自己的 Hermes Web"]
     Hermes <--> Provider["服务端配置的模型与工具"]
     classDef offline fill:#153d33,stroke:#52c7a5,color:#ffffff
     class ASR,Model,Text offline
@@ -90,7 +90,7 @@ flowchart TD
 ## 功能
 
 - 暗色聊天界面；文字、多图输入，Markdown 与代码块显示。
-- 用户配置 HTTPS 服务器、端口、用户名和密码；保存配置及加密登录凭据。
+- 用户选择 HTTP/HTTPS 协议并配置服务器、端口、用户名和密码；保存配置及加密登录凭据。
 - 新建/恢复/搜索会话，断线重连、停止生成，等待区显示简洁活动状态。
 - Hermes 的问题和选项直接出现在聊天中；命令执行需明确确认，密码使用独立遮罩框。
 - 模型与 reasoning 选择，设置作用于服务端的 default profile。
@@ -112,8 +112,10 @@ flowchart TD
 
 1. 自行构建 debug APK；公开 Releases 尚未创建。
 2. 首次打开默认英文。服务器输入框以灰色显示 `hermes-agent.nousresearch.com` 作为示例；它不是已填入的地址，也不会自动连接。请填写你可访问的 Web 地址、端口（默认 `443`）、用户名和密码。
-3. 使用最终 HTTPS 地址，不使用重定向入口、URL 内嵌账号或查询参数；服务端应部署完整证书链。
+3. 选择 HTTPS（默认，端口 443）或手动选择 HTTP（默认端口 80），再填写最终服务器地址。切换协议保留自定义端口；粘贴完整 URL 时，其协议必须与选择一致。不支持重定向入口、URL 内嵌账号或查询参数；HTTPS 服务端应部署完整证书链。
 4. 首次离线语音需要下载约 75 MB 模型，下载后识别在本机进行。主动选择的系统语音可能联网。
+
+**HTTP / WS 不加密：** 密码、会话令牌和聊天内容可能被窃听或篡改，仅在可信网络使用。协议会保存供重连使用，旧配置仍为 HTTPS，不会自动降级为 HTTP。要求 Secure Cookie 的服务器可能无法通过 HTTP 登录，此时应使用 HTTPS，而不是削弱 Cookie 安全属性。
 
 用户手动选择的语言和已保存的服务器优先保留，不会被默认英文或示例地址覆盖。
 升级后会清理旧 SSH 配置和加密凭据，但不会清空聊天服务器配置和登录信息。

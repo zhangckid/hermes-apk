@@ -12,6 +12,7 @@ data class ServerConfig(
     val host: String,
     val port: Int,
     val username: String,
+    val scheme: String = "https",
 ) {
     companion object {
         const val EXAMPLE_HOST = "hermes-agent.nousresearch.com"
@@ -20,19 +21,22 @@ data class ServerConfig(
     private val parsed: HttpUrl?
         get() {
             val raw = host.trim()
+            if (scheme !in setOf("https", "http")) return null
             if (raw.isEmpty() || raw.any { it.isWhitespace() } || raw.contains('\\')) return null
             val address = when {
                 raw.contains("://") -> raw
-                raw.count { it == ':' } > 1 && !raw.startsWith("[") -> "https://[" + raw + "]"
-                else -> "https://" + raw
+                raw.count { it == ':' } > 1 && !raw.startsWith("[") -> "$scheme://[" + raw + "]"
+                else -> "$scheme://" + raw
             }
             return address.toHttpUrlOrNull()?.takeIf {
-                it.isHttps && it.username.isEmpty() && it.password.isEmpty() && it.query == null && it.fragment == null
+                it.scheme == scheme && it.username.isEmpty() && it.password.isEmpty() && it.query == null && it.fragment == null
             }
         }
 
     val normalizedHost: String get() = parsed?.host.orEmpty()
-    val baseUrl: String get() = HttpUrl.Builder().scheme("https").host(normalizedHost).port(port).build().toString().removeSuffix("/")
+    val baseUrl: String get() = HttpUrl.Builder().scheme(scheme).host(normalizedHost).port(port).build().toString().removeSuffix("/")
+
+    val webSocketBaseUrl: String get() = baseUrl.replaceFirst("https://", "wss://").replaceFirst("http://", "ws://")
 
     fun validate(): String? = when {
         host.isBlank() -> t("请输入服务器地址")

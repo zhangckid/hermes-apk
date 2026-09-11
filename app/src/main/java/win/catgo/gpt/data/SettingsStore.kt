@@ -10,15 +10,18 @@ class SettingsStore(context: Context) {
         val host = preferences.getString(KEY_HOST, null)?.takeIf { it.isNotBlank() } ?: return null
         return ServerConfig(
             host = host,
+            scheme = preferences.getString(KEY_SCHEME, "https").orEmpty(),
             port = preferences.getInt(KEY_PORT, 443),
             username = preferences.getString(KEY_USERNAME, "").orEmpty(),
         )
     }
 
     fun save(config: ServerConfig) {
+        require(config.validate() == null) { "Invalid server configuration" }
         preferences.edit()
             .putString(KEY_HOST, config.normalizedHost)
             .putInt(KEY_PORT, config.port)
+            .putString(KEY_SCHEME, config.scheme)
             .putString(KEY_USERNAME, config.username.trim())
             .apply()
     }
@@ -34,6 +37,7 @@ class SettingsStore(context: Context) {
     }
 
     private companion object {
+        const val KEY_SCHEME = "scheme"
         const val KEY_HOST = "host"
         const val KEY_PORT = "port"
         const val KEY_USERNAME = "username"

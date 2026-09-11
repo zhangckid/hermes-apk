@@ -21,7 +21,7 @@ catgo-gpt connects directly to an existing compatible Hermes Web deployment. Eac
 
 ```mermaid
 flowchart TD
-    App["catgo-gpt · Android"] <-->|HTTPS / WSS| Web["Existing Hermes Web interface"]
+    App["catgo-gpt · Android"] <-->|HTTPS / WSS or HTTP / WS| Web["Existing Hermes Web interface"]
     Browser["Your web browser"] <--> Web
     Web <--> Agent["Hermes Agent · your server"]
     Agent <--> Models["Configured models and tools"]
@@ -62,7 +62,7 @@ flowchart TD
         Summary --> TTS["Android TTS"]
     end
     Download["Model download source · initial network access"] -.-> Model
-    Chat <-->|HTTPS / WSS| Hermes["Your Hermes Web deployment"]
+    Chat <-->|HTTPS / WSS or HTTP / WS| Hermes["Your Hermes Web deployment"]
     Hermes <--> Provider["Server-configured models and tools"]
     classDef offline fill:#153d33,stroke:#52c7a5,color:#ffffff
     class ASR,Model,Text offline
@@ -80,7 +80,7 @@ See the [architecture guide](docs/ARCHITECTURE.md) for module boundaries, the vo
 ## Features
 
 - Dark native chat UI with text, multiple images, Markdown and code blocks.
-- Configurable HTTPS server, port, username and password; saved settings and encrypted credentials.
+- Configurable HTTP/HTTPS protocol, server, port, username and password; saved settings and encrypted credentials.
 - Create, restore and search sessions; reconnect, stop generation and show compact activity status.
 - Inline Hermes questions and options; explicit command approval and a separate masked secret field.
 - Model and reasoning selection, applied to the server's default profile.
@@ -100,8 +100,10 @@ Hermes CLI alone or an arbitrary OpenAI-compatible endpoint is not sufficient. R
 
 1. Build a debug APK; public GitHub Releases have not been created yet.
 2. On first launch, the interface is English. The server field shows `hermes-agent.nousresearch.com` as a grey **example only**, not a prefilled address or automatic connection target. Enter your accessible server, port (default `443`), username and password.
-3. Use the final HTTPS address, without redirects, embedded credentials or query parameters. The server should provide a complete certificate chain.
+3. Choose HTTPS (default, port 443) or explicitly select HTTP (default port 80), then enter the final server address. Custom ports are retained when switching protocols. If you paste a full URL, its scheme must match the selection. Redirects, embedded credentials and query parameters are not supported. HTTPS servers should provide a complete certificate chain.
 4. First-use offline speech downloads approximately 75 MB of model data. Subsequent recognition runs locally; explicitly selected system recognition may use the network.
+
+**HTTP / WS is unencrypted:** passwords, session tokens and chats can be intercepted or modified. Use only on a trusted network. The selected protocol is saved for reconnect; existing configurations remain HTTPS. HTTPS never automatically falls back to HTTP. Servers that require Secure cookies may not support HTTP login; use HTTPS rather than weakening cookie security.
 
 Saved servers and explicit language choices take precedence over defaults. Upgrading clears retired SSH settings and credentials, but preserves chat server settings and login information. Do not uninstall to upgrade if you want to retain local settings.
 

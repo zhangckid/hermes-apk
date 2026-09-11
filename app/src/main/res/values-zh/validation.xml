@@ -1,3 +1,6 @@
 <resources>
-    <string name="server_address_invalid">请输入有效的 HTTPS 服务器地址</string>
+    <string name="server_address_invalid">请输入与所选 HTTP/HTTPS 协议一致的有效服务器地址</string>
+    <string name="connection_protocol">连接协议</string>
+    <string name="connection_http_warning">HTTP 未加密：账号、密码和聊天内容可能被窃听或篡改。仅在可信网络使用。</string>
+    <string name="connection_http_hint">使用 HTTP / WS 明文连接</string>
 </resources>
