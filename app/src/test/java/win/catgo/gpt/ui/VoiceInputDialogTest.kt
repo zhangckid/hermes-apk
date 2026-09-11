@@ -45,7 +45,7 @@ class VoiceInputDialogTest {
     @Test fun reopeningAlwaysReturnsToOffline() {
         show()
         compose.onNodeWithTag("voice-switch-engine").performClick()
-        compose.onNodeWithText("关闭").performClick()
+        compose.onNodeWithText(win.catgo.gpt.i18n.t("关闭")).performClick()
         compose.runOnIdle { open.value = true }
         compose.onNodeWithText("test-offline").assertExists()
         compose.onNodeWithText("test-system").assertDoesNotExist()
