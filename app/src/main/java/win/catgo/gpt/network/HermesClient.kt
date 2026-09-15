@@ -39,8 +39,8 @@ class HermesClient(
     private val settingsStore: SettingsStore,
     private val cookieJar: EncryptedCookieJar,
     override val json: Json,
+    private val credentials: win.catgo.gpt.data.SessionStorage = SecureSessionStore(context, "catgo_secure_credentials"),
 ) : HermesPtyBackend {
-    private val credentials = SecureSessionStore(context, "catgo_secure_credentials")
     private val authMutex = Mutex()
     private val authGeneration = java.util.concurrent.atomic.AtomicLong()
     @Volatile private var cachedClient: OkHttpClient? = null
@@ -77,7 +77,7 @@ class HermesClient(
                     .toRequestBody(JSON_MEDIA_TYPE),
             )
             .build()
-        executeRaw(request)
+        executeLogin(request)
         credentials.write(json.encodeToString(LoginRequest(username = config.username.trim(), password = password)))
     }
 
@@ -171,11 +171,12 @@ class HermesClient(
         return synchronized(this) {
             cachedClient?.takeIf { cachedClientKey == key } ?: OkHttpClient.Builder()
                 .cookieJar(cookieJar)
-                .connectTimeout(20, TimeUnit.SECONDS)
+                .callTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(90, TimeUnit.SECONDS)
                 .writeTimeout(90, TimeUnit.SECONDS)
                 .pingInterval(15, TimeUnit.SECONDS)
-                .apply { ServerHttpPolicy.apply(this); ServerHttpPolicy.restrictToServer(this, config); TlsConfigurator.apply(this, context) }
+                .apply { ServerHttpPolicy.apply(this); ServerHttpPolicy.restrictToServer(this, config); if (config.scheme == "https") TlsConfigurator.apply(this, context) }
                 .build()
                 .also {
                     cachedClient = it
@@ -195,7 +196,7 @@ class HermesClient(
                 if (requireConfig().clientKey() != identity) throw kotlinx.coroutines.CancellationException()
                 if (authGeneration.get() == observedAuthGeneration) {
                     val saved = credentials.read() ?: throw error
-                    executeRaw(Request.Builder().url(url("/auth/password-login"))
+                    executeLogin(Request.Builder().url(url("/auth/password-login"))
                         .post(saved.toRequestBody(JSON_MEDIA_TYPE)).build())
                     authGeneration.incrementAndGet()
                 }
@@ -205,8 +206,17 @@ class HermesClient(
         }
     }
 
+    private suspend fun executeLogin(request: Request) {
+        executeRaw(request, allowLoginRedirect = true)
+        if (cookieJar.requiresHttps(request.url)) {
+            throw IOException(t("服务器登录凭据要求 HTTPS，请切换为 HTTPS。"))
+        }
+        // A 200 response or a redirect alone does not establish an authenticated session.
+        executeRaw(Request.Builder().url(url("/api/auth/me")).get().build())
+    }
+
     /** Cancellation cancels the actual HTTP call, not just its caller's UI state. */
-    private suspend fun executeRaw(request: Request): String = suspendCancellableCoroutine { continuation ->
+    private suspend fun executeRaw(request: Request, allowLoginRedirect: Boolean = false): String = suspendCancellableCoroutine { continuation ->
         val call = client().newCall(request)
         continuation.invokeOnCancellation { call.cancel() }
         call.enqueue(object : okhttp3.Callback {
@@ -217,7 +227,15 @@ class HermesClient(
                 val result = runCatching {
                     response.use {
                         val body = it.body?.string().orEmpty()
-                        if (!it.isSuccessful) throw HttpStatusException(it.code, when (it.code) {
+                        val location = it.header("Location")?.let(request.url::resolve)
+                        val loginRedirect = allowLoginRedirect && it.code in setOf(302, 303) &&
+                            location != null && location.scheme == request.url.scheme &&
+                            location.host == request.url.host && location.port == request.url.port &&
+                            location.username.isEmpty() && location.password.isEmpty()
+                        // Accept the login cookie, then verify /api/auth/me. Never forward the password.
+                        if (it.isRedirect && !loginRedirect) throw HttpStatusException(it.code,
+                            t("服务器要求重定向，请填写最终地址并确认 HTTP/HTTPS 协议。"))
+                        if (!it.isSuccessful && !loginRedirect) throw HttpStatusException(it.code, when (it.code) {
                             401 -> t("用户名、密码错误或登录已过期")
                             429 -> t("尝试次数过多，请稍后重试")
                             else -> t("服务器返回错误") + " ${it.code}"

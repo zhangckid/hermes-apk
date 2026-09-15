@@ -24,6 +24,10 @@ object UiText {
         return localized(context).getString(id)
     }
     private val resources = mapOf(
+        "服务器登录凭据要求 HTTPS，请切换为 HTTPS。" to R.string.login_requires_https,
+        "服务器要求重定向，请填写最终地址并确认 HTTP/HTTPS 协议。" to R.string.login_redirect,
+        "连接超时，请检查服务器地址、端口和 HTTP/HTTPS 协议。" to R.string.connection_timeout,
+        "取消连接" to R.string.cancel_connection,
         "连接协议" to R.string.connection_protocol,
         "HTTP 未加密：账号、密码和聊天内容可能被窃听或篡改。仅在可信网络使用。" to R.string.connection_http_warning,
         "使用 HTTP / WS 明文连接" to R.string.connection_http_hint,

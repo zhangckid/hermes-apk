@@ -38,7 +38,14 @@ class HermesPtySocket(
         utf8Decoder = Utf8StreamDecoder()
         val attempt = generation.incrementAndGet()
         listener.onState(ConnectionState.CONNECTING)
-        val ticket = client.createWebSocketTicket()
+        val ticket = try { client.createWebSocketTicket() } catch (error: Exception) {
+            if (error is kotlinx.coroutines.CancellationException) throw error
+            if (isCurrent(attempt)) {
+                listener.onError(error.message ?: t("聊天连接失败"))
+                listener.onState(ConnectionState.CLOSED)
+            }
+            throw error
+        }
         if (!isCurrent(attempt)) return
 
         val openedSocket = client.openPtySocket(

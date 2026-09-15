@@ -3,4 +3,8 @@
     <string name="connection_protocol">Connection protocol</string>
     <string name="connection_http_warning">HTTP is unencrypted: accounts, passwords and chats may be intercepted or modified. Use only on trusted networks.</string>
     <string name="connection_http_hint">Unencrypted connection using HTTP / WS</string>
+    <string name="login_requires_https">The server requires HTTPS for login. Select HTTPS.</string>
+    <string name="login_redirect">The server requires a redirect. Enter the final address and check HTTP/HTTPS.</string>
+    <string name="connection_timeout">Connection timed out. Check the server address, port and HTTP/HTTPS protocol.</string>
+    <string name="cancel_connection">Cancel connection</string>
 </resources>

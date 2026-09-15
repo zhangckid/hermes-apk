@@ -8,7 +8,7 @@ import okhttp3.HttpUrl
 import win.catgo.gpt.model.PersistedCookie
 
 class EncryptedCookieJar(
-    private val secureStore: SecureSessionStore,
+    private val secureStore: SessionStorage,
     private val json: Json,
 ) : CookieJar {
     private val lock = Any()
@@ -35,6 +35,15 @@ class EncryptedCookieJar(
 
     fun hasSession(): Boolean = synchronized(lock) {
         cookies.any { it.name.startsWith("hermes_session_") && it.expiresAt > System.currentTimeMillis() }
+    }
+
+    fun requiresHttps(url: HttpUrl): Boolean = synchronized(lock) {
+        val secureUrl = url.newBuilder().scheme("https").build()
+        !url.isHttps && cookies.any {
+            it.name.startsWith("hermes_session_") && it.secure && it.expiresAt > System.currentTimeMillis() && it.matches(secureUrl)
+        } && cookies.none {
+            it.name.startsWith("hermes_session_") && it.expiresAt > System.currentTimeMillis() && it.matches(url)
+        }
     }
 
     fun clear() = synchronized(lock) {

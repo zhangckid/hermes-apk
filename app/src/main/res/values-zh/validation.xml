@@ -3,4 +3,8 @@
     <string name="connection_protocol">连接协议</string>
     <string name="connection_http_warning">HTTP 未加密：账号、密码和聊天内容可能被窃听或篡改。仅在可信网络使用。</string>
     <string name="connection_http_hint">使用 HTTP / WS 明文连接</string>
+    <string name="login_requires_https">服务器登录凭据要求 HTTPS，请切换为 HTTPS。</string>
+    <string name="login_redirect">服务器要求重定向，请填写最终地址并确认 HTTP/HTTPS 协议。</string>
+    <string name="connection_timeout">连接超时，请检查服务器地址、端口和 HTTP/HTTPS 协议。</string>
+    <string name="cancel_connection">取消连接</string>
 </resources>

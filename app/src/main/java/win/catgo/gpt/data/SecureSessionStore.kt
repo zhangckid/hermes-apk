@@ -10,10 +10,10 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-class SecureSessionStore(context: Context, namespace: String = "catgo_secure_session") {
+class SecureSessionStore(context: Context, namespace: String = "catgo_secure_session") : SessionStorage {
     private val preferences = context.getSharedPreferences(namespace, Context.MODE_PRIVATE)
 
-    fun read(): String? {
+    override fun read(): String? {
         val encoded = preferences.getString(KEY_PAYLOAD, null) ?: return null
         return runCatching {
             val allBytes = Base64.decode(encoded, Base64.NO_WRAP)
@@ -29,7 +29,7 @@ class SecureSessionStore(context: Context, namespace: String = "catgo_secure_ses
         }
     }
 
-    fun write(value: String) {
+    override fun write(value: String) {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getOrCreateKey())
         val encrypted = cipher.doFinal(value.encodeToByteArray())
@@ -39,7 +39,7 @@ class SecureSessionStore(context: Context, namespace: String = "catgo_secure_ses
             .apply()
     }
 
-    fun clear() {
+    override fun clear() {
         preferences.edit().clear().apply()
     }
 
