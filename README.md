@@ -4,7 +4,7 @@ English | [简体中文](README.zh-CN.md)
 
 An unofficial Android client for compatible self-hosted Hermes Web deployments, built with Kotlin and Jetpack Compose.
 
-**1.0.1 · [MIT License](LICENSE) · Offline-first voice input**
+**1.0.2 · [MIT License](LICENSE) · Offline-first voice input**
 
 Not an official Nous Research or Hermes product; no affiliation or endorsement is implied.
 Before public distribution, complete the asset, third-party and device checks in the [release checklist](docs/RELEASE_CHECKLIST.md).

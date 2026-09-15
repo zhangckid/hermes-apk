@@ -7,7 +7,7 @@
 An unofficial native Android client for compatible self-hosted Hermes web deployments.
 See [development](docs/DEVELOPMENT.md) and [backend compatibility](docs/PROTOCOL.md).
 
-**1.0.1 · [MIT License](LICENSE) · 非官方 Android 客户端**
+**1.0.2 · [MIT License](LICENSE) · 非官方 Android 客户端**
 
 本项目不是 Nous Research 或 Hermes 官方产品，与其不存在官方授权或背书关系。
 公开发布前仍需完成 [发布清单](docs/RELEASE_CHECKLIST.md) 中的素材、第三方分发和设备验证事项。

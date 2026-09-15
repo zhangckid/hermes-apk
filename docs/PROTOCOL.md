@@ -31,6 +31,19 @@ query/fragment parameters are rejected. Cookies and WebSocket tickets must not b
 Model/reasoning changes target the server's `default` profile and may affect other clients using it.
 Expensive models require explicit confirmation. This is not a per-device-only preference.
 
+## Reconnect identity
+
+Keep the original PTY `channel`, `attach`, and `resume` target for transport retries.
+A newly created conversation initially has no `resume` parameter; learning its database
+session ID does **not** change that launch target. Changing it can start another CLI
+owner and produce a live-owner conflict. `fresh=1` is sent only on the first attempt
+for a new attachment. Distinct conversations receive independent attachment IDs.
+
+A `{"type":"resume","id":"..."}` WebSocket frame announces terminal replay. Its
+ID is not necessarily an `/api/sessions` ID and must not replace the selected chat
+history ID. The app discovers and binds persisted session IDs through the REST
+session list and message history. See [live verification](VERIFICATION-1.0.2.md).
+
 The PTY implementation currently recognizes known boxed Hermes question, command approval and secret
 panels. Numeric selections map to actual server keys; ordinary answers are single-line. Truncated,
 expired, incomplete or unsupported panels are not safe to authorize. Independent PTY processes do not

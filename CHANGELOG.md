@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 — 2026-09-15
+
+- Match the deployed web client: retain PTY channel and original resume target across reconnects; send `fresh` only on the first attempt.
+- Treat `resume` control frames as terminal replay metadata, not persisted chat session IDs. Bind sessions from structured history discovery and retain their attachment when switching away and back.
+- Verify both HTTP and HTTPS new-chat/reconnect/second-reply flows against a live deployment; compare with a real Chrome web-client disconnect/reconnect test.
+- Add reconnect identity, first-attempt and account-reset regressions. No server configuration changes or plugins are required.
+- Android versionCode 22; existing saved server credentials remain compatible.
+
 ## 1.0.1 — 2026-09-15
 
 - Keep server settings open when delayed startup/login requests finish; cancel old authentication work and clear busy/model-dialog state.
