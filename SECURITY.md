@@ -26,7 +26,8 @@ reproduction. Never attach real passwords, cookies, WebSocket tickets, private k
   Secure cookies retain their normal HTTPS-only behavior.
 - The bundled intermediate certificates assist chain building; platform trust, expiry and hostname
   checks remain active. This is not arbitrary trust of self-signed certificates or exact Chrome behavior.
-- API redirects are disabled. Configure the final server origin rather than a redirecting URL.
+- API redirects are disabled. Same-origin 302/303 login responses are accepted only with a subsequent successful
+  `/api/auth/me` check; the redirect target is never requested and the password is never forwarded. Configure the final server origin rather than a redirecting URL.
 - Hermes questions/approvals are parsed from known PTY panels, not cryptographically authenticated
   structured authorization events. Read the displayed command. Unsupported or truncated requests fail closed.
 - Password prompts use a separate masked field, are excluded from chat history, and enable screenshot

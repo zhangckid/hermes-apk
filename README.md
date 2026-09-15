@@ -4,7 +4,7 @@ English | [简体中文](README.zh-CN.md)
 
 An unofficial Android client for compatible self-hosted Hermes Web deployments, built with Kotlin and Jetpack Compose.
 
-**1.0.0 · [MIT License](LICENSE) · Offline-first voice input**
+**1.0.1 · [MIT License](LICENSE) · Offline-first voice input**
 
 Not an official Nous Research or Hermes product; no affiliation or endorsement is implied.
 Before public distribution, complete the asset, third-party and device checks in the [release checklist](docs/RELEASE_CHECKLIST.md).
@@ -103,7 +103,7 @@ Hermes CLI alone or an arbitrary OpenAI-compatible endpoint is not sufficient. R
 3. Choose HTTPS (default, port 443) or explicitly select HTTP (default port 80), then enter the final server address. Custom ports are retained when switching protocols. If you paste a full URL, its scheme must match the selection. Redirects, embedded credentials and query parameters are not supported. HTTPS servers should provide a complete certificate chain.
 4. First-use offline speech downloads approximately 75 MB of model data. Subsequent recognition runs locally; explicitly selected system recognition may use the network.
 
-**HTTP / WS is unencrypted:** passwords, session tokens and chats can be intercepted or modified. Use only on a trusted network. The selected protocol is saved for reconnect; existing configurations remain HTTPS. HTTPS never automatically falls back to HTTP. Servers that require Secure cookies may not support HTTP login; use HTTPS rather than weakening cookie security.
+**HTTP / WS is unencrypted:** passwords, session tokens and chats can be intercepted or modified. Use only on a trusted network. The selected protocol is saved for reconnect; existing configurations remain HTTPS. HTTPS never automatically falls back to HTTP. Login failures remain visible on the connection screen, and pending connections can be cancelled. Version 1.0.1 prevents delayed startup requests from closing server settings. Servers that require Secure cookies may not support HTTP login; use HTTPS rather than weakening cookie security.
 
 Saved servers and explicit language choices take precedence over defaults. Upgrading clears retired SSH settings and credentials, but preserves chat server settings and login information. Do not uninstall to upgrade if you want to retain local settings.
 

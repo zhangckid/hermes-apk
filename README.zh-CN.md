@@ -7,7 +7,7 @@
 An unofficial native Android client for compatible self-hosted Hermes web deployments.
 See [development](docs/DEVELOPMENT.md) and [backend compatibility](docs/PROTOCOL.md).
 
-**1.0.0 · [MIT License](LICENSE) · 非官方 Android 客户端**
+**1.0.1 · [MIT License](LICENSE) · 非官方 Android 客户端**
 
 本项目不是 Nous Research 或 Hermes 官方产品，与其不存在官方授权或背书关系。
 公开发布前仍需完成 [发布清单](docs/RELEASE_CHECKLIST.md) 中的素材、第三方分发和设备验证事项。
@@ -115,7 +115,7 @@ flowchart TD
 3. 选择 HTTPS（默认，端口 443）或手动选择 HTTP（默认端口 80），再填写最终服务器地址。切换协议保留自定义端口；粘贴完整 URL 时，其协议必须与选择一致。不支持重定向入口、URL 内嵌账号或查询参数；HTTPS 服务端应部署完整证书链。
 4. 首次离线语音需要下载约 75 MB 模型，下载后识别在本机进行。主动选择的系统语音可能联网。
 
-**HTTP / WS 不加密：** 密码、会话令牌和聊天内容可能被窃听或篡改，仅在可信网络使用。协议会保存供重连使用，旧配置仍为 HTTPS，不会自动降级为 HTTP。要求 Secure Cookie 的服务器可能无法通过 HTTP 登录，此时应使用 HTTPS，而不是削弱 Cookie 安全属性。
+**HTTP / WS 不加密：** 密码、会话令牌和聊天内容可能被窃听或篡改，仅在可信网络使用。协议会保存供重连使用，旧配置仍为 HTTPS，不会自动降级为 HTTP。登录失败原因会保留在连接页，等待时可以取消连接。1.0.1 修复了迟到的启动请求把服务器设置页切回聊天页的问题。要求 Secure Cookie 的服务器可能无法通过 HTTP 登录，此时应使用 HTTPS，而不是削弱 Cookie 安全属性。
 
 用户手动选择的语言和已保存的服务器优先保留，不会被默认英文或示例地址覆盖。
 升级后会清理旧 SSH 配置和加密凭据，但不会清空聊天服务器配置和登录信息。

@@ -23,7 +23,8 @@ tested web backend repository/revision and deployment requirements.
 
 The final HTTP/HTTPS origin must be entered directly. HTTPS is the default; HTTP is explicit opt-in with
 an unencrypted-transport warning. WebSockets use WSS for HTTPS and WS for HTTP. The selected protocol is
-persisted; legacy configurations default to HTTPS. A pasted URL must match the selected protocol. Redirects are not followed. Host/path pasted from a
+persisted; legacy configurations default to HTTPS. A pasted URL must match the selected protocol. Redirects are not followed. A same-origin 302/303 response from the password-login endpoint may establish a cookie;
+the client then verifies `/api/auth/me` directly before reporting success. Password bodies are never forwarded to a redirect target. Host/path pasted from a
 web URL is normalized to the origin; the separate port field takes precedence. URL credentials and
 query/fragment parameters are rejected. Cookies and WebSocket tickets must not be logged. Secure cookies are not downgraded for HTTP servers.
 

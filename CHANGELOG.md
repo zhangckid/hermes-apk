@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.1 — 2026-09-15
+
+- Keep server settings open when delayed startup/login requests finish; cancel old authentication work and clear busy/model-dialog state.
+- Verify authenticated sessions before completing login. Support same-origin 302/303 login responses without forwarding passwords.
+- Report HTTPS-only cookies and unsupported redirects; retain login errors on screen and allow cancelling a pending connection.
+- Bound HTTP requests and report reconnect failures after the existing ten-second quiet period.
+- Exercise real HermesClient HTTP login, persisted cookies, session listing and WS connection against a local fixture; add delayed-navigation and settings-button regressions.
+- Android versionCode 21; existing encrypted credentials remain compatible.
+
+
 ## 1.0.0 — Unreleased (first public version)
 
 The public version sequence starts at 1.0.0. Earlier 1.1–1.4 builds were private development versions;
