@@ -454,7 +454,7 @@ class AppViewModel(
         }
     }
 
-    override fun onSessionId(sessionId: String) {
+    private fun bindSession(sessionId: String) {
         attachIds[sessionId] = conversationAttachId
         _state.update { current -> current.copy(currentSessionId = sessionId,
             promptHistory = current.promptHistory.map { record ->
@@ -779,10 +779,6 @@ class AppViewModel(
                 viewModelScope.launch { if (isCurrent()) this@AppViewModel.onState(state) }
             }
 
-            override fun onSessionId(sessionId: String) {
-                viewModelScope.launch { if (isCurrent()) this@AppViewModel.onSessionId(sessionId) }
-            }
-
             override fun onRawOutput(bytes: ByteArray) {
                 viewModelScope.launch { if (isCurrent()) this@AppViewModel.onRawOutput(bytes) }
             }
@@ -830,6 +826,7 @@ class AppViewModel(
                     SessionDiscoveryPolicy.shouldDiscover(sessionId, knownSessionIds)
                 ) {
                     val sessions = runCatching { client.getSessions() }.getOrNull()
+                    if (!isCurrentConversation(conversationVersion)) return@launch
                     val unseen = sessions.orEmpty().filterNot { it.id in knownSessionIds }
                     val candidate = unseen.firstOrNull { session ->
                         session.preview.orEmpty()
@@ -838,6 +835,7 @@ class AppViewModel(
                             .contains(expectedPrefix)
                     }
                     if (candidate != null) {
+                        bindSession(candidate.id)
                         sessionId = candidate.id
                         runningRequests[candidate.id] = RunningRequest(
                             baselineId,

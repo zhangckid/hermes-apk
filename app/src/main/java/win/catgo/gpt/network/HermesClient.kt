@@ -4,7 +4,6 @@ import win.catgo.gpt.i18n.t
 import android.content.Context
 import android.util.Base64
 import java.io.IOException
-import java.util.UUID
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Mutex
@@ -42,6 +41,7 @@ class HermesClient(
     private val credentials: win.catgo.gpt.data.SessionStorage = SecureSessionStore(context, "catgo_secure_credentials"),
 ) : HermesPtyBackend {
     private val authMutex = Mutex()
+    private val ptyConnections = PtyConnectionRegistry()
     private val authGeneration = java.util.concurrent.atomic.AtomicLong()
     @Volatile private var cachedClient: OkHttpClient? = null
     @Volatile private var cachedClientKey: String? = null
@@ -58,6 +58,7 @@ class HermesClient(
         val previousKey = settingsStore.load()?.clientKey()
         settingsStore.save(config)
         if (previousKey != config.clientKey()) {
+            ptyConnections.clear()
             cachedClient?.dispatcher?.cancelAll()
             cookieJar.clear()
             credentials.clear()
@@ -136,14 +137,14 @@ class HermesClient(
         attachId: String,
         listener: okhttp3.WebSocketListener,
     ): okhttp3.WebSocket {
-        val channel = "chat-${UUID.randomUUID()}"
+        val target = ptyConnections.resolve(attachId, resumeSessionId, fresh)
         val params = buildList {
             add("ticket=${encodeQuery(ticket)}")
-            add("channel=${encodeQuery(channel)}")
+            add("channel=${encodeQuery(target.channel)}")
             add("attach=${encodeQuery(attachId)}")
             add("profile=default")
-            if (fresh) add("fresh=1")
-            if (!resumeSessionId.isNullOrBlank()) add("resume=${encodeQuery(resumeSessionId)}")
+            if (target.fresh) add("fresh=1")
+            target.resume?.let { add("resume=${encodeQuery(it)}") }
         }.joinToString("&")
         val wsUrl = requireConfig().webSocketBaseUrl + "/api/pty?$params"
         return client().newWebSocket(Request.Builder().url(wsUrl).build(), listener)
@@ -160,6 +161,7 @@ class HermesClient(
         }
         cookieJar.clear()
         credentials.clear()
+        ptyConnections.clear()
     }
 
     fun clearSession() = cookieJar.clear()

@@ -61,7 +61,7 @@ class HermesInteractionTest {
         }
         val socket = HermesPtySocket(backend, object : HermesPtySocket.Listener {
             override fun onState(state: ConnectionState) { if (state == ConnectionState.OPEN) clientOpen.complete(Unit) }
-            override fun onSessionId(sessionId: String) { ids.offer(sessionId) }
+            override fun onReplayStarted(terminalId: String) { ids.offer(terminalId) }
             override fun onOutput(text: String) { outputs.offer(text) }
             override fun onRawOutput(bytes: ByteArray) { raw.offer(bytes) }
             override fun onError(message: String) {}
@@ -74,8 +74,8 @@ class HermesInteractionTest {
             withTimeout(5000) { clientOpen.await() }
             val peer = withTimeout(5000) { opened.await() }
             assertEquals("\u001b[RESIZE:90;32]", next(received))
-            peer.send("""{"type":"resume","id":"current-test-session"}""")
-            assertEquals("current-test-session", next(ids))
+            peer.send("""{"type":"resume","id":"replayed-pty-id"}""")
+            assertEquals("replayed-pty-id", next(ids))
             assertTrue(raw.isEmpty())
             val prompt = "\u001b[31m⚠️  Dangerous Command\u001b[0m\r\n1. Allow once\r\n2. Deny"
             peer.send(prompt)

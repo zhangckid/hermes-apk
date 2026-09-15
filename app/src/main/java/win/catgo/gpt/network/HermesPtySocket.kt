@@ -150,7 +150,7 @@ class HermesPtySocket(
             } else null
         }.getOrNull()
         if (!resumeId.isNullOrBlank()) {
-            listener.onSessionId(resumeId)
+            listener.onReplayStarted(resumeId)
             return
         }
         listener.onRawOutput(bytes)
@@ -159,7 +159,8 @@ class HermesPtySocket(
 
     interface Listener {
         fun onState(state: ConnectionState)
-        fun onSessionId(sessionId: String)
+        // This ID identifies the replayed PTY, not a /api/sessions record.
+        fun onReplayStarted(terminalId: String) {}
         fun onOutput(text: String)
         fun onRawOutput(bytes: ByteArray) {}
         fun onError(message: String)
