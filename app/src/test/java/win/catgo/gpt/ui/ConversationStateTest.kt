@@ -20,6 +20,7 @@ class ConversationStateTest {
             generatingConversationVersion = 4,
             liveActivity = "web_search",
             showReconnectPrompt = true,
+            connectionError = "old connection failure",
             busy = true,
             conversationVersion = 4,
         )
@@ -33,6 +34,7 @@ class ConversationStateTest {
         assertNull(fresh.generatingConversationVersion)
         assertEquals("", fresh.liveActivity)
         assertFalse(fresh.showReconnectPrompt)
+        assertNull(fresh.connectionError)
         assertFalse(fresh.busy)
         assertEquals(5, fresh.conversationVersion)
         assertTrue(fresh.draftSession)

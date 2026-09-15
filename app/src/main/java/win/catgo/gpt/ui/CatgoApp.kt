@@ -149,8 +149,8 @@ fun CatgoApp(state: AppUiState, viewModel: AppViewModel) {
 @Composable
 private fun CatgoHome(state: AppUiState, viewModel: AppViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
-    LaunchedEffect(state.error) {
-        state.error?.let {
+    LaunchedEffect(state.error, state.destination) {
+        state.error?.takeIf { state.destination != Destination.LOGIN }?.let {
             snackbarHostState.showSnackbar(t(it))
             viewModel.clearError()
         }
@@ -173,6 +173,8 @@ private fun CatgoHome(state: AppUiState, viewModel: AppViewModel) {
                 busy = state.busy,
                 snackbarHostState = snackbarHostState,
                 onLogin = viewModel::login,
+                loginError = state.error,
+                onCancel = viewModel::editConnection,
             )
             Destination.CHAT -> ChatScreen(
                 state = state,
@@ -211,6 +213,8 @@ internal fun LoginScreen(
     busy: Boolean,
     snackbarHostState: SnackbarHostState,
     onLogin: (ServerConfig, String) -> Unit,
+    loginError: String? = null,
+    onCancel: (() -> Unit)? = null,
 ) {
     var scheme by rememberSaveable(savedConfig) { mutableStateOf(savedConfig?.scheme ?: "https") }
     var host by rememberSaveable(savedConfig) { mutableStateOf(savedConfig?.host ?: "") }
@@ -220,6 +224,7 @@ internal fun LoginScreen(
     var showPassword by rememberSaveable { mutableStateOf(false) }
 
     fun submit() {
+        if (busy) return
         onLogin(
             ServerConfig(
                 host = host,
@@ -268,6 +273,8 @@ internal fun LoginScreen(
                     shape = RoundedCornerShape(24.dp),
                 ) {
                     Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                        loginError?.let { Text(it, color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.testTag("login-error")) }
                         Text(t("连接协议"), color = MutedText)
                         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             listOf("https", "http").forEach { option ->
@@ -368,6 +375,8 @@ internal fun LoginScreen(
                                 Text(t("连接并登录"))
                             }
                         }
+                        if (busy && onCancel != null) TextButton(onClick = onCancel,
+                            modifier = Modifier.testTag("login-cancel")) { Text(t("取消连接")) }
                         Text(
                             t("服务器配置会保留；密码和登录凭据由 Android Keystore 加密，用于自动重联。"),
                             color = MutedText,
@@ -606,7 +615,7 @@ private fun HistoryDrawer(
                     onCheckedChange = onVoiceRepliesChanged,
                 )
             }
-            TextButton(onClick = onEditConnection, modifier = Modifier.fillMaxWidth()) {
+            TextButton(onClick = onEditConnection, modifier = Modifier.fillMaxWidth().testTag("server-settings")) {
                 Icon(Icons.Default.Settings, null)
                 Spacer(Modifier.width(8.dp))
                 Text(t("服务器设置"))
@@ -687,7 +696,8 @@ private fun Conversation(
                 Modifier.fillMaxWidth().background(Clay.copy(alpha = 0.12f)).padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(t("聊天连接已断开"), modifier = Modifier.weight(1f), color = Clay, fontSize = 13.sp)
+                Text(state.connectionError?.let { t("聊天连接已断开") + "\n" + it } ?: t("聊天连接已断开"),
+                    modifier = Modifier.weight(1f).testTag("connection-error"), color = Clay, fontSize = 13.sp)
                 TextButton(onClick = onReconnect) { Text(t("重新连接")) }
             }
         }

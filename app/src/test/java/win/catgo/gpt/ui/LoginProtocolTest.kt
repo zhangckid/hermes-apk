@@ -20,6 +20,15 @@ import win.catgo.gpt.ui.theme.CatgoTheme
 class LoginProtocolTest {
     @get:Rule val compose = createComposeRule()
     @Before fun setup() { UiText.initialize(ApplicationProvider.getApplicationContext()) }
+    @Test fun connectionErrorStaysVisibleAndPendingLoginCanBeCancelled() {
+        var cancelled = false
+        compose.setContent { CatgoTheme { LoginScreen(null, true, SnackbarHostState(), { _, _ -> },
+            loginError = "Connection refused", onCancel = { cancelled = true }) } }
+        compose.onNodeWithTag("login-error").assertTextContains("Connection refused")
+        compose.onNodeWithTag("login-cancel").performScrollTo().performClick()
+        org.junit.Assert.assertTrue(cancelled)
+    }
+
     @Test fun defaultsSecureAndSwitchesStandardPortsWithWarning() {
         compose.setContent { CatgoTheme { LoginScreen(null, false, SnackbarHostState(), { _, _ -> }) } }
         compose.onNodeWithTag("login-protocol-https").assertIsSelected()

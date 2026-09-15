@@ -12,6 +12,8 @@ import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -62,6 +64,8 @@ class AppViewModel(
 
     @Volatile private var pty: HermesPtySocket? = null
     @Volatile private var conversationAttachId = attachIdForConnection(false)
+    private var accountVersion = 0L
+    private var authenticationJob: Job? = null
     private var pollJob: Job? = null
     private var navigationJob: Job? = null
     private var sendJob: Job? = null
@@ -96,16 +100,22 @@ class AppViewModel(
             showError(t("请输入密码"))
             return
         }
-        viewModelScope.launch {
+        authenticationJob?.cancel()
+        val owner = ++accountVersion
+        authenticationJob = viewModelScope.launch {
             _state.update { it.copy(busy = true, error = null) }
             runCatching {
-                client.login(config, password)
-                sessionMessages.clear()
-                sessionActivities.clear()
-                runningRequests.clear()
-                attachIds.clear()
-                loadHome()
+                withTimeout(30_000) {
+                    client.login(config, password)
+                    sessionMessages.clear()
+                    sessionActivities.clear()
+                    runningRequests.clear()
+                    attachIds.clear()
+                    loadHome(owner)
+                }
             }.onFailure { error ->
+                if (owner != accountVersion) return@onFailure
+                if (error is CancellationException && error !is TimeoutCancellationException) throw error
                 _state.update {
                     it.copy(
                         destination = Destination.LOGIN,
@@ -314,6 +324,9 @@ class AppViewModel(
     }
 
     fun editConnection() {
+        accountVersion++
+        authenticationJob?.cancel()
+        modelJob?.cancel()
         resetInteraction()
         rememberCurrentSessionDisplay()
         unboundRunningRequest = null
@@ -327,6 +340,11 @@ class AppViewModel(
             it.copy(
                 destination = Destination.LOGIN,
                 savedConfig = client.savedConfig(),
+                busy = false,
+                error = null,
+                connectionError = null,
+                modelSettingsOpen = false,
+                modelSettingsBusy = false,
                 messages = emptyList(),
                 sessions = emptyList(),
                 currentSessionId = null,
@@ -344,6 +362,9 @@ class AppViewModel(
     }
 
     fun logout() {
+        accountVersion++
+        authenticationJob?.cancel()
+        modelJob?.cancel()
         resetInteraction()
         viewModelScope.launch {
             cancelReconnect()
@@ -417,6 +438,7 @@ class AppViewModel(
         _state.update { current ->
             current.copy(
                 connectionState = state,
+                connectionError = if (state == ConnectionState.OPEN) null else current.connectionError,
                 showReconnectPrompt = if (state == ConnectionState.OPEN) {
                     false
                 } else {
@@ -581,10 +603,11 @@ class AppViewModel(
     }
 
     override fun onError(message: String) {
-        // Connection failures are retried silently. A manual reconnect prompt appears after 10s.
+        _state.update { it.copy(connectionError = message) }
     }
 
     override fun onCleared() {
+        authenticationJob?.cancel()
         cancelReconnect()
         navigationJob?.cancel()
         sendJob?.cancel()
@@ -596,7 +619,8 @@ class AppViewModel(
     }
 
     private fun restoreSession() {
-        viewModelScope.launch {
+        val owner = accountVersion
+        authenticationJob = viewModelScope.launch {
             val config = client.savedConfig()
             if (config == null || !client.hasSavedSession()) {
                 _state.update { it.copy(destination = Destination.LOGIN, savedConfig = config) }
@@ -604,21 +628,26 @@ class AppViewModel(
             }
             _state.update { it.copy(destination = Destination.CHAT, busy = false) }
             runCatching {
-                client.checkAuthenticated()
-                loadHome()
+                withTimeout(30_000) {
+                    client.checkAuthenticated()
+                    loadHome(owner)
+                }
             }.onFailure { error ->
-                if (error is CancellationException) throw error
-                // Offline is not logout. Keep the configured server and encrypted credentials.
-                _state.update { it.copy(busy = false, connectionState = ConnectionState.CLOSED) }
-                startAutoReconnect()
+                if (owner != accountVersion) return@onFailure
+                if (error is CancellationException && error !is TimeoutCancellationException) throw error
+                // Keep saved settings, but let the user fix failed login instead of retrying invisibly.
+                _state.update { it.copy(destination = Destination.LOGIN, savedConfig = config,
+                    busy = false, error = loginFailureMessage(error), connectionState = ConnectionState.CLOSED) }
             }
         }
     }
 
-    private suspend fun loadHome() {
+    private suspend fun loadHome(owner: Long) {
         val sessions = client.getSessions()
         conversationAttachId = attachIdForConnection(true)
-        val model = runCatching { client.getModelInfo() }.getOrNull()
+        val model = withTimeoutOrNull(5_000) { runCatching { client.getModelInfo() }.getOrNull() }
+        currentCoroutineContext().ensureActive()
+        if (owner != accountVersion) return
         _state.update {
             it.copy(
                 destination = Destination.CHAT,
@@ -683,6 +712,10 @@ class AppViewModel(
                                 it.connectionState == ConnectionState.ENDED
                         }
                     }
+                }.onFailure { error ->
+                    if (error is CancellationException && error !is TimeoutCancellationException) throw error
+                    updateConversation(conversationVersion) { it.copy(connectionState = ConnectionState.CLOSED,
+                        connectionError = friendlyError(error)) }
                 }
                 if (!isCurrentConversation(conversationVersion) ||
                     _state.value.connectionState == ConnectionState.OPEN
@@ -740,7 +773,7 @@ class AppViewModel(
         var candidate: HermesPtySocket? = null
         val scopedListener = object : HermesPtySocket.Listener {
             private fun isCurrent(): Boolean =
-                pty === candidate && isCurrentConversation(conversationVersion)
+                pty === candidate && isCurrentConversation(conversationVersion) && _state.value.destination == Destination.CHAT
 
             override fun onState(state: ConnectionState) {
                 viewModelScope.launch { if (isCurrent()) this@AppViewModel.onState(state) }
@@ -1037,6 +1070,7 @@ class AppViewModel(
 
     private fun friendlyError(error: Throwable): String = when (error) {
         is TimeoutCancellationException -> t("Hermes 启动超时，请稍后重试")
+        is java.net.SocketTimeoutException -> t("连接超时，请检查服务器地址、端口和 HTTP/HTTPS 协议。")
         is java.net.UnknownHostException -> t("找不到服务器，请检查地址")
         is javax.net.ssl.SSLException -> t("服务器证书校验失败，请检查 HTTPS 证书链")
         is java.net.ConnectException -> t("无法连接服务器，请检查地址和端口")

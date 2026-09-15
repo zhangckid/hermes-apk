@@ -19,6 +19,7 @@ data class AppUiState(
     val pendingImages: List<PickedImage> = emptyList(),
     val connectionState: ConnectionState = ConnectionState.IDLE,
     val showReconnectPrompt: Boolean = false,
+    val connectionError: String? = null,
     val ptyReady: Boolean = false,
     val isGenerating: Boolean = false,
     val generatingConversationVersion: Long? = null,

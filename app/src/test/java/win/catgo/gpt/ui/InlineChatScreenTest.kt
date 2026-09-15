@@ -27,15 +27,23 @@ class InlineChatScreenTest {
         prompt = PromptFixtures.parse(PromptFixtures.openQuestion()).copy(id = 42)))
     private val sent = mutableListOf<String>()
     private var newChats = 0
+    private var settingsOpened = 0
     private fun show() {
         compose.setContent { MaterialTheme {
             ChatScreen(state.value, SnackbarHostState(), onNewChat = { newChats++ }, onModelSettings = {},
                 onPromptChoice = { _, _ -> true }, onPromptConfirm = { true },
                 onPromptAnswer = { _, _ -> true }, onPromptSkip = { true }, onOpenSession = {},
                 onSend = { if (state.value.interactionReady) sent.add(it) else false }, onStop = {},
-                onAddImages = {}, onRemoveImage = {}, onReconnect = {}, onEditConnection = {},
+                onAddImages = {}, onRemoveImage = {}, onReconnect = {}, onEditConnection = { settingsOpened++ },
                 onLogout = {}, onRefreshSessions = {}, onVoiceRepliesChanged = {})
         } }
+    }
+
+    @Test fun serverSettingsButtonWorksDuringAnActiveConversation() {
+        show()
+        compose.onNodeWithContentDescription(win.catgo.gpt.i18n.t("会话历史")).performClick()
+        compose.onNodeWithTag("server-settings").assertIsDisplayed().performClick()
+        assertEquals(1, settingsOpened)
     }
 
     @Test fun generatingTaskCanReceiveAnInlineAnswerWithoutOpeningAnotherConversation() {
